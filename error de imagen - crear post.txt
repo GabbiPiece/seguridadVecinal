@@ -1,0 +1,2 @@
+YKI, I had problem with XAMPP, I removed comment from xampp/php/php.ini file's line extension=php_fileinfo.dll and than restarted apache, It worked for me.
+
