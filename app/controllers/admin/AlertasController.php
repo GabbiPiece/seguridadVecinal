@@ -5,7 +5,8 @@ class AlertasController extends \BaseController {
   //aca hacemos el metodo para listar alertas
   public function getlist() {
     //  $alertas = Alerta::getAlerta()->pagi;
-    $alertas = Alerta::paginate(5);
+    // $alertas = Alerta::paginate(5);
+    $alertas = Alerta::getAlertaBarrio();
     $data = [
       'alerta' => $alertas,
     ];
