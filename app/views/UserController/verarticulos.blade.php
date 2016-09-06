@@ -17,11 +17,11 @@
 
 {{ Form::open(array
             (
-            'action' => 'UserController@verarticulos', 
+            'action' => 'UserController@verarticulos',
             'method' => 'GET',
             'role' => 'form',
             'class' => 'form-inline'
-            )) 
+            ))
 }}
 {{ Form::input('text', 'buscar', Input::get('buscar'), array('class' => 'form-control') )}}
 {{ Form::input('submit', null, 'Buscar', array('class' => 'btn btn-primary'))}}
@@ -40,9 +40,9 @@
             <img src="{{URL::to('/').'/'.$fila->src}}" title="{{$fila->titulo}}" width="150" height="150">
         </div>
         <div class='col-md-9'>
-            <a href="{{URL::route('editararticulo', array('id' => $fila->id))}}" class="btn btn-primary">Editar</a>           
-            <a href="{{URL::route('eliminararticulo', array('id' => $fila->id))}}"  class="btn btn-primary" >Eliminar</a>
-            <h3><a href="{{URL::route('articulo', array('id'=>$fila->id))}}">{{$fila->titulo}}</a></h3>
+            <a href="{{URL::route('editararticulo', array('ide_usuario' => $fila->ide_usuario))}}" class="btn btn-primary">Editar</a>           
+            <a href="{{URL::route('eliminararticulo', array('ide_usuario' => $fila->ide_usuario))}}"  class="btn btn-primary" >Eliminar</a>
+            <h3><a href="{{URL::route('articulo', array('ide_usuario'=>$fila->ide_usuario))}}">{{$fila->titulo}}</a></h3>
             URL:<a href="{{$fila->href}}" target="_blank">{{$fila->href}}</a> <br>
          <br>
             {{$fila->descripcion}}
