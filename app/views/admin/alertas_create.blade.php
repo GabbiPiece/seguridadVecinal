@@ -34,9 +34,9 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for=""></label>
             <div class="col-sm-10 ">
-                {{ Form::hidden('usuario', Auth::user()->get()->nombre, array('class' => 'form-control', 'placeholder'=>'Ingrese el nombre usuario', 'id' =>'usuario')) }}
-                @if($errors->has('usuario'))
-                <p class="text-danger">{{ $errors->first('usuario') }}</p>
+                {{ Form::hidden('ide_usuario', Auth::user()->get()->ide_usuario, array('class' => 'form-control', 'placeholder'=>'Ingrese el nombre usuario', 'id' =>'usuario')) }}
+                @if($errors->has('ide_usuario'))
+                <p class="text-danger">{{ $errors->first('ide_usuario') }}</p>
                 @endif
             </div>
         </div>

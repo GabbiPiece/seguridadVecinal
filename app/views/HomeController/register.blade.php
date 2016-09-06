@@ -40,16 +40,15 @@
                 <div class="bg-danger">{{$errors->first('celular')}}</div>
             </div>
              <div class="form-group">
-                {{Form::label("Direccion")}}
+                {{Form::label("Direccion:")}}
                 {{Form::input("text", "direccion", null, array("class" => "form-control", 'placeholder'=>'Ingrese su dirección, debe tener solo letras y numeros, ej: Iselin 1231' ))}}
                 <div class="bg-danger">{{$errors->first('direccion')}}</div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="">Seleccione un Barrio: </label>
-                <div class="col-sm-10 ">
+              {{Form::label("Seleccione su barrio:")}}
                {{Form::select('zona_id', $combobox,['class'=>'form-control'])}}
-                </div>
+
             </div>
 
             <div class="form-group">

@@ -12,17 +12,17 @@ class CreateBlogTable extends Migration {
 	 */
 	public function up()
 	{
-        
+
 	 Schema::create('blog', function($table) {
             $table->increments('id');
             $table->string('titulo');
             $table->text('descripcion');
             $table->string('src');
             $table->string('href');
-            $table->integer('ide_usuarios');
-          
+            $table->integer('ide_usuario');
+
           	//
-	
+
                });
          }
 

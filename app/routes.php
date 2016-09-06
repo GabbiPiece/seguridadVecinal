@@ -1,10 +1,8 @@
 <?php
-
 Route::get('/', function()
 {
 	return View::make('admin.index');
 });
-
 Route::get('alertas', 'AlertasController@getList');
 //Route::get('alertas/create', 'AlertasController@getCreate');
 Route::get('alertas/create', 'AlertasController@getCreate');
@@ -14,7 +12,6 @@ Route::post('alertas/store', 'AlertasController@postStore');
 Route::get('alertas/edit/{id}', 'AlertasController@getEdit');
 Route::put('alertas/update/{id}', 'AlertasController@putUpdate');
 Route::delete('alertas/destroy/{id}', 'AlertasController@deleteDestroy');
-
 Route::get('/editarusuario', 'HomeController@editarusuario', function (){});
 Route::get('/condiciones', 'HomeController@condiciones', function (){});
 Route::get('/contacto', 'HomeController@contacto', function (){
@@ -27,7 +24,6 @@ Route::get('/privado', 'HomeController@privado', function (){});
 Route::get('/salir', 'HomeController@salir', function (){});
 Route::get('/register', 'HomeController@register');
 Route::get('/confirmregister/{email}/{key}', function($email, $key){
-
     if (urldecode($email) == Cookie::get("email") && urldecode($key) == Cookie::get("key"))
     {
         $conn = DB::connection("mysql");
@@ -50,7 +46,6 @@ Route::post('/editararticulo/{id}', array('before' => 'csrf', function(){
     $rules = array(
         "titulo" => "required|regex:/^[a-z0-9áéóóúàèìòùäëïöüñ\s]+$/i|min:3|max:100",
         "descripcion" => "required|min:10|max:1000000000000000000000",
-
     );
     $messages = array(
         "titulo.required" => "El campo Título es requerido",
@@ -84,7 +79,6 @@ Route::post('/editararticulo/{id}', array('before' => 'csrf', function(){
             $ruta_imagen = "directorio/images/";
             $imagen = rand(1000, 9999)."-".$src["name"];
             move_uploaded_file($src["tmp_name"], $ruta_imagen.$imagen);
-
             /* Hacemos la consulta para obtener el src de la imagen anterior */
             $sql = "SELECT src FROM blog WHERE id=? AND ide_usuario=?";
             $anterior_imagen = $conn->select($sql, array($id, $id));
@@ -108,17 +102,14 @@ Route::post('/editararticulo/{id}', array('before' => 'csrf', function(){
             $sql = "UPDATE blog SET titulo='$titulo', descripcion='$descripcion', href='$href' WHERE id=? AND ide_usuario=?";
             $conn->update($sql, array($id, $id));
             }
-
             $message = "<hr><label class='label label-info'>Editado con éxito</label><hr>";
             return Redirect::back()->with("message", $message);
-
         }
     }
     else
     {
         return Redirect::back()->withInput()->withErrors($validator);
     }
-
 }));
 Route::any('/eliminararticulo/{id}', array('as' => 'eliminararticulo', 'uses' => 'UserController@eliminararticulo'))->before("auth_user");
 Route::get('/eliminararticulo/{id}', 'UserController@eliminararticulo', function(){});
@@ -139,15 +130,12 @@ Route::post('/eliminararticulo/{id}', array('before' => 'csrf', function(){
         return Redirect::route("verarticulos")->with('message', $message);
     }
 }));
-
 Route::get('/recoverpassword', 'HomeController@recoverpassword', function(){
     return View::make('HomeController.recoverpassword');
 });
-
 Route::get('/resetpassword/{type}/{token}', 'HomeController@resetpassword', function(){
     return View::make("HomeController.resetpassword");
 });
-
 Route::get('/updatepassword', 'HomeController@updatepassword', function(){});
 Route::any('/contacto', array('as'=> 'contacto', 'uses' => 'HomeController@contacto'));
 Route::any('/hello', array('as'=> 'hello', 'uses' => 'HomeController@hello'));
@@ -165,12 +153,9 @@ Route::any('admin/alertas', array('as'=> 'alertas', 'uses' => 'AlertasController
 Route::any('/recoverpassword', array('as' => 'recoverpassword', 'uses' => 'HomeController@recoverpassword'))->before("guest_user");
 Route::any('/resetpassword/{type}/{token}', array('as' => 'resetpassword', 'uses' => 'HomeController@resetpassword'))->before("guest_user");
 Route::any('/updatepassword', array('as' => 'updatepassword', 'uses' => 'HomeController@updatepassword'))->before("guest_user");
-
 App::missing(function($excepcion){
     return Response::View('error.error404', array() , 404 );
 });
-
-
 Route::post('/login' , array('before' => 'csrf', function(){
         $usuario = array(
             //'celular' => Input::get('celular'),
@@ -188,12 +173,10 @@ Route::post('/login' , array('before' => 'csrf', function(){
             return Redirect::route("login");
         }
 }));
-
 Route::get('/register', 'HomeController@register', function()
 {
 	return View::make('HomeController.register');
 });
-
 Route::get('/confirmregister/{email}/{key}', function($email, $key){
     if (urldecode($email) == Cookie::get("email") && urldecode($key) == Cookie::get("key"))
     {
@@ -227,7 +210,6 @@ Route::post('/creararticulo', array('before' => 'csrf', function(){
         "descripcion.min" => "El mínimo permitido son 10 caracteres",
         "descripcion.max" => "El máximo permitido son 1000 caracteres",
     );
-
     $validator = Validator::make(Input::All(), $rules, $messages);
     if ($validator->passes())
     {
@@ -253,13 +235,9 @@ Route::post('/creararticulo', array('before' => 'csrf', function(){
         return Redirect::back()->withInput()->withErrors($validator);
     }
 }));
-
-
 Route::any('/register', array('as' => 'register', 'uses' => 'HomeController@register'));
 Route::any('/confirmregister', array('as' => 'confirmregister', 'uses' => 'HomeController@confirmregister'));
-
 Route::post('/register', array('before' => 'csrf', function(){
-
     $rules = array
     (
     'usuario' => 'required|regex:/^[a-záéóóúàèìòùäëïöüñ\s]+$/i|min:3|max:50',
@@ -270,7 +248,6 @@ Route::post('/register', array('before' => 'csrf', function(){
     'direccion' => 'required',
     'celular' => 'required|numeric',
     );
-
     $messages = array
     (
         'usuario.required' => 'El nombre de usuario es requerido',
@@ -294,7 +271,6 @@ Route::post('/register', array('before' => 'csrf', function(){
         'celular.numeric' => 'El celular debe ser numerico',
     );
     $validator = Validator::make(Input::All(), $rules, $messages);
-
     if ($validator->passes())
     {
         //Guardar los datos en la tabla
@@ -306,58 +282,46 @@ Route::post('/register', array('before' => 'csrf', function(){
         $usuario = input::get('usuario');
         $email = input::get('email');
         $password = Hash::make(input::get('password'));
-
         $conn = DB::connection('mysql');
         $sql = "INSERT INTO usuario(nombre, apellido, celular, direccion, zona_id, usuario, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $conn->insert($sql, array($nombre, $apellido, $celular, $direccion, $zona_id, $usuario, $email, $password));
-
         // Crear cookies para luego verificar el link de registro
         // String alfanumérico de 32 caracteres de longitud
         $key = Str::random(32);
         Cookie::queue('key', $key, 60*24);
         // Almacenar el email
         Cookie::queue('email', $email, 60*24);
-
         // Crear la url de confirmación para el mensaje del email
         $msg = "<a href='".URL::to("/confirmregister/$email/$key")."'>Confirmar cuenta</a>";
-
         //Enviar email para confirmar el registro
         $data = array(
             'nombre' => $nombre,
             'msg' => $msg,
           );
-
          $fromEmail = 'gabi.carp26@gmail.com';
          $fromName = 'Administrador del Sistema';
-
           Mail::send('emails.register', $data, function($message) use ($fromName, $fromEmail, $nombre, $email)
           {
              $message->to($email, $nombre);
              $message->from($fromEmail, $fromName);
              $message->subject('Confirmar registro en el sistema');
           });
-
           $message = '<hr><label class="label label-info">'.$nombre.' le hemos enviado un email a su cuenta de correo electrónico para que confirme su registro</label><hr>';
-
           return Redirect::route('register')->with("message", $message);
     }
     else
     {
         return Redirect::back()->withInput()->withErrors($validator);
     }
-
 }));
 Route::post('/login', array('before' => 'csrf', function(){
-
                $user = array(
                     'email' => Input::get('email'),
                     'password' => Input::get('password'),
                     'active' => 1,
                 );
-
                 $remember = Input::get("remember");
                 $remember == 'On' ? $remember = true : $remember = false;
-
                 if (Auth::user()->attempt($user, $remember))
                 {
                     return Redirect::route("privado");
@@ -368,29 +332,23 @@ Route::post('/login', array('before' => 'csrf', function(){
                             <strong>Usuario o Contraseña incorrectos</strong>
                             </div>');
                     return Redirect::route("login");
-
                 }
 }));
 Route::post('/recoverpassword', array('before' => 'csrf', function(){
-
     $rules = array(
         "email" => "required|email|exists:usuario",
     );
-
     $messages = array(
         "email.required" => "El campo email es requerido",
         "email.email" => "El formato de email es incorrecto",
         "email.exists" => "El email seleccionado no se encuentra registrado",
     );
-
     $validator = Validator::make(Input::All(), $rules, $messages);
-
     if ($validator->passes())
     {
         Password::user()->remind(Input::only("email"), function($message) {
         $message->subject('Recuperar contraseña');
         });
-
         $message = '<hr><label class="label label-info">Le hemos enviado un email a su cuenta de correo electrónico para que pueda recuperar su contraseña</label><hr>';
         return Redirect::route('recoverpassword')->with("message", $message);
     }
@@ -398,10 +356,8 @@ Route::post('/recoverpassword', array('before' => 'csrf', function(){
     {
         return Redirect::back()->withInput()->withErrors($validator);
     }
-
 }));
 Route::post('/updatepassword', array('before' => 'csrf', function(){
-
             $credentials = array(
             'email' => Input::get('email'),
             'password' => Input::get('password'),
@@ -414,9 +370,7 @@ Route::post('/updatepassword', array('before' => 'csrf', function(){
             });
             $message = '<hr><label class="label label-info">Su contraseña cambiado con éxito, ya puedes iniciar sesión</label><hr>';
             return Redirect::to('login')->with('message', $message);
-
 }));
 App::missing(function($excepcion){
     return Response::View('error.error404', array() , 404 );
-
 });

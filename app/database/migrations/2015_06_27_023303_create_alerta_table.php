@@ -14,13 +14,11 @@ class CreateAlertaTable extends Migration {
 	{
 	Schema::create('alerta', function($table) {
             $table->increments('ale_id');
+						$table->string('ale_direccion');
             $table->string('ale_mensaje');
-            $table->string('ale_tipo');
-            $table->string('ale_calle');
-            $table->string('ale_numero');
-            $table->string('zona_barrio');
-            $table->string('usuario');
-            
+            $table->integer('zona_id');
+            $table->integer('tipo_id');
+            $table->integer('ide_usuario');            
            	//
                });
 	}

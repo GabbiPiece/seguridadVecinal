@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
                 "fzaninotto/faker": "1.3.*@dev",
-                "ollieread/multiauth": "dev-master"
+                "ollieread/multiauth": "dev-master",
+		"dompdf/dompdf": "^0.7.0"
 	},
 	"autoload": {
 		"classmap": [

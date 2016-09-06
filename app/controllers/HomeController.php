@@ -84,19 +84,6 @@ public function register()
 					return View::make('HomeController.register',compact('combobox'));
         }
 
-/*public function barrio_option()
-			  {
-					$tipos = Zona::all()->lists('zona_id','zona_id');
-					var_dump(	$tipos);
-					$combobox = array(0=> "Seleccione un barrio") + $tipos;
-
-					echo "string";
-
-
-
-					return View::make('HomeController.register', array('combobox'=>$combobox));
-			  }*/
-
 public function confirmregister()
         {
 

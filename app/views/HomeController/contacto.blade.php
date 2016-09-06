@@ -37,24 +37,24 @@
 						}}
 						<div class="form-group">
 						{{Form::label('Nombre:')}}
-						{{Form::input('text', 'name', null, array('class' => 'form-control'))}}
+						{{Form::input('text', 'name', null, array('class' => 'form-control', 'required' => 'required'))}}
 						</div>
 
 						<div class="form-group">
 						{{Form::label('Email:')}}
-						{{Form::input('email', 'email', null, array('class' => 'form-control'))}}
+						{{Form::input('email', 'email', null, array('class' => 'form-control', 'required' => 'required'))}}
 						</div>
 
 						<div class="form-group">
 						{{Form::label('Asunto:')}}
-						{{Form::input('text', 'subject', null, array('class' => 'form-control'))}}
+						{{Form::input('text', 'subject', null, array('class' => 'form-control', 'required' => 'required'))}}
 						</div>
-                       
+
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">	
+                        <div class="form-group">
 							{{Form::label('Mensaje:')}}
-							{{Form::textarea('msg', null, array('class' => 'form-control'))}}
+							{{Form::textarea('msg', null, array('class' => 'form-control', 'required' => 'required'))}}
 						</div>
                     </div>
 
@@ -62,7 +62,7 @@
                         {{Form::input('hidden', 'contacto')}}
 						{{Form::input('submit', null, 'Enviar', array('class' => 'btn btn-primary pull-right'))}}
                     </div>
-                   
+
                 </div>
             </div>
         </div>

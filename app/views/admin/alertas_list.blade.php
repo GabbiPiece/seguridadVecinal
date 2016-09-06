@@ -28,7 +28,6 @@
         <th>N°</th>
         <th>Dirección</th>
         <th>Barrio</th>
-        <th>Usuario</th>
         <th>Mensaje</th>
         <th>Tipo</th>
 
@@ -38,17 +37,16 @@
 
     @foreach ($alerta as $alertas)
     <tr>
-        <td>{{ $alertas->ale_id }}</td>
+        <td>{{ $alertas->id }}</td>
         <td>{{ $alertas->ale_direccion }}</td>
         <td>{{ $alertas->zona_barrio }}</td>
-        <td>{{ $alertas->usuario }}</td>
         <td>{{ $alertas->ale_mensaje }}</td>
         <td>{{ $alertas->ale_tipo }}</td>
 
 
         <td>
-            <a class='btn  btn-info glyphicon glyphicon-edit' title='Editar Alerta' href="{{ URL::to('/alertas/edit', $alertas->ale_id ) }}"></a>
-            {{ Form::open(array('url' => 'alertas/destroy/' . $alertas->ale_id,'method' => 'delete', 'class' => 'pull-right', 'title' => 'Eliminar Alerta')) }}
+            <a class='btn  btn-info glyphicon glyphicon-edit' title='Editar Alerta' href="{{ URL::to('/alertas/edit', $alertas->id ) }}"></a>
+            {{ Form::open(array('url' => 'alertas/destroy/' . $alertas->id,'method' => 'delete', 'class' => 'pull-right', 'title' => 'Eliminar Alerta')) }}
             <button class="glyphicon glyphicon-trash btn btn-danger"></button>
             {{ Form::close() }}
 

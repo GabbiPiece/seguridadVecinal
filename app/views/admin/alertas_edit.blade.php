@@ -5,7 +5,7 @@
 
 @section ('content')
     <div class="col-md-12">
-        {{ Form::model($alerta,array('url' => 'alertas/update/'.$alerta->ale_id, 'method' => 'PUT', 'class' => 'form-horizontal'))   }}
+        {{ Form::model($alerta,array('url' => 'alertas/update/'.$alerta->id, 'method' => 'PUT', 'class' => 'form-horizontal'))   }}
         <fieldset>
             <legend>Editar Alerta</legend>
 
@@ -57,7 +57,7 @@
        <div class="form-group">
             <label class="col-sm-2 control-label" for="">Seleccione un tipo de Alerta: </label>
             <div class="col-sm-10 ">
-               {{Form::select('tipo_id',['Seguridad', 'Medica', 'Otra',''])}} 
+               {{Form::select('tipo_id',['Seguridad', 'Medica', 'Otra',''])}}
 
 
             </div>
