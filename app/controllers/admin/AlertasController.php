@@ -34,18 +34,20 @@ class AlertasController extends \BaseController {
     $enviar_msj = new Smsc();
     $rules = array(
       'ale_direccion' => 'required:alerta,ale_direccion',
-      'zona_id' => 'required:zonas,zona_id',
-      'usuario' => 'required:alerta,usuario',
       'ale_mensaje' => 'required:alerta,ale_mensaje',
+      'zona_id' => 'required:zonas,zona_id',
       'tipo_id' => 'required:alerta,tipo_id',
+      'usuario' => 'required:alerta,usuario',
+
     );
 
     $attributes = array(
       'ale_direccion' => 'ale_direccion',
-      'zona_id' =>'barrio',
-      'usuario' =>'nombre',
       'ale_mensaje' => 'mensaje',
+      'zona_id' =>'barrio',
       'tipo_id' => 'tipo',
+      'usuario' =>'nombre',
+
     );
     $validator = Validator::make(Input::all(), $rules);
     $validator->setAttributeNames($attributes);
@@ -58,10 +60,10 @@ class AlertasController extends \BaseController {
 
     $alertas = new Alerta();
     $alertas->ale_direccion = Input::get('ale_direccion');
-    $alertas->zona_id = Input::get('zona_id');
-    $alertas->usuario = Input::get('usuario');
     $alertas->ale_mensaje = Input::get('ale_mensaje');
+    $alertas->zona_id = Input::get('zona_id');
     $alertas->tipo_id = Input::get('tipo_id');
+    $alertas->usuario = Input::get('usuario');
     $alertas->save();
     try {
 
@@ -91,47 +93,52 @@ class AlertasController extends \BaseController {
     }
   }
 
-  public function getedit($id) {
+  public function getEdit($id) {
     $alertas = Alerta::find($id);
     $data = [
       'alerta' => $alertas,
     ];
-    return View::make('admin/alertas_edit',$data);
+    $tipos = Zona::all()->lists('zona_barrio','zona_id');
+    // $tipos = DB::select('select distinct ale_barrio from alerta')->lists('ale_barrio','ale_id');
+    $combobox = array(0=> "Seleccione un barrio") + $tipos;
+    $alerta=  Tipo::all()->lists('ale_tipo','tipo_id');
+    // $tipos = DB::select('select distinct ale_barrio from alerta')->lists('ale_barrio','ale_id');
+    $combo = array(0=> "Seleccione un tipo") + $alerta;
+    return View::make('admin/alertas_edit', compact('combobox','combo'), $data);
+  //  return View::make('admin/alertas_edit',$data);
   }
 
   public function putUpdate($id) {
 
     $rules = array(
       'ale_direccion' => 'required:alerta,ale_direccion',
-      'zona_id' => 'required:zonas,zona_id',
-      'usuario' => 'required:alerta,usuario',
       'ale_mensaje' => 'required:alerta,ale_mensaje',
+      'zona_id' => 'required:zonas,zona_id',
       'tipo_id' => 'required:alerta,tipo_id',
+      'usuario' => 'required:alerta,usuario',
+
     );
 
     $attributes = array(
-      'ale_direccion' =>'direccion',
-      'zona_id' =>'barrio',
-      'usuario' =>'nombre',
+      'ale_direccion' => 'direccion',
       'ale_mensaje' => 'mensaje',
+      'zona_id' => 'zona',
       'tipo_id' => 'tipo',
+      'usuario' => 'usuario',
     );
 
     $validator = Validator::make(Input::all(), $rules);
     $validator->setAttributeNames($attributes);
 
-
     $alertas = Alerta::find($id);
     $alertas->ale_direccion = Input::get('ale_direccion');
-    $alertas->usuario = Input::get('usuario');
     $alertas->ale_mensaje = Input::get('ale_mensaje');
-      $alertas->zona_id = Input::get('zona_id');
+    $alertas->zona_id = Input::get('zona_id');
     $alertas->tipo_id = Input::get('tipo_id');
+    $alertas->usuario = Input::get('usuario');
 
     //actualizad base de dato
     $alertas->save();
-    //Se envia un mensaje de tipo flash solo se muestra una vez redireccionado
-    //en el caso de actualizar la pagina desaparece
     Session::flash('message', 'La alerta se actualizo correctamente');
     //Si todos se cumplio correctamente redirecciona
     return Redirect::to('alertas');
@@ -160,6 +167,17 @@ class AlertasController extends \BaseController {
     // $tipos = DB::select('select distinct ale_barrio from alerta')->lists('ale_barrio','ale_id');
     $combo = array(0=> "Seleccione un tipo") + $alerta;
     return View::make('admin/alertas_create', compact('combobox','combo'));
+  }
+
+  public function barrio_option2()
+  {
+    $tipos = Zona::all()->lists('zona_barrio','zona_id');
+    // $tipos = DB::select('select distinct ale_barrio from alerta')->lists('ale_barrio','ale_id');
+    $combobox = array(0=> "Seleccione un barrio") + $tipos;
+    $alerta=  Tipo::all()->lists('ale_tipo','tipo_id');
+    // $tipos = DB::select('select distinct ale_barrio from alerta')->lists('ale_barrio','ale_id');
+    $combo = array(0=> "Seleccione un tipo") + $alerta;
+    return View::make('admin/alertas_edit', compact('combobox','combo'));
   }
 
 }

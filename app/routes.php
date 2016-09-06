@@ -9,7 +9,6 @@ Route::get('alertas', 'AlertasController@getList');
 //Route::get('alertas/create', 'AlertasController@getCreate');
 Route::get('alertas/create', 'AlertasController@getCreate');
 Route::get('alertas/create', 'AlertasController@barrio_option');
-//Route::get('alertas/create', 'AlertasController@alerta_option');
 Route::post('alertas/store', 'AlertasController@postStore');
 Route::get('alertas/edit/{id}', 'AlertasController@getEdit');
 Route::put('alertas/update/{id}', 'AlertasController@putUpdate');
